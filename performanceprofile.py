@@ -80,6 +80,11 @@ def plotPerformanceProfile(methods, instances, results,
     for (i, met), name in zip(enumerate(methods), descriptions):
         xs = [ x[0] for x in allSteps[met] ]
         ys = [ x[1] for x in allSteps[met] ]
+        # case where this method never has the best performance:
+        # initial step at level 0
+        if xs[0] > 1.0:
+            xs = [1] + xs
+            ys = [0] + ys
         xs.append(worstPerf)
         if len(perfRatios[met]) == len(bestPerf):
             ys.append(1)
